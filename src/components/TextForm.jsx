@@ -22,9 +22,7 @@ export default function TextForm(props) {
     setText(event.target.value);
   };
   const handleCopy = () => {
-    var text = document.getElementById("myBox");
-    text.select();
-    navigator.clipboard.writeText(text.value);
+    navigator.clipboard.writeText(text);
     props.showAlert("Text Copied!", "success");
   };
   const handleExtraSpaces = () => {
@@ -36,7 +34,7 @@ export default function TextForm(props) {
   return (
     <>
       <div className="container" style={{ color: props.mode === "dark" ? "white" : "black" }}>
-        <h1>{props.heading}</h1>
+        <h1 className="mb-2">{props.heading}</h1>
         <div className="mb-3">
           <textarea
             className="form-control"
@@ -47,19 +45,19 @@ export default function TextForm(props) {
             rows="8"
           ></textarea>
         </div>
-        <button className={`btn btn-${props.mode === "dark" ? "dark" : "light"} mx-1 my-1`} onClick={handleUpClick}>
+        <button disabled={text.length === 0} className={`btn btn-${props.mode === "dark" ? "dark" : "light"} mx-1 my-1`} onClick={handleUpClick}>
           Upper Case
         </button>
-        <button className={`btn btn-${props.mode === "dark" ? "dark" : "light"} mx-1 my-1`} onClick={handleLoClick}>
+        <button disabled={text.length === 0} className={`btn btn-${props.mode === "dark" ? "dark" : "light"} mx-1 my-1`} onClick={handleLoClick}>
           Lower Case
         </button>
-        <button className={`btn btn-${props.mode === "dark" ? "dark" : "light"} mx-1 my-1`} onClick={handleClear}>
+        <button disabled={text.length === 0} className={`btn btn-${props.mode === "dark" ? "dark" : "light"} mx-1 my-1`} onClick={handleClear}>
           Clear
         </button>
-        <button className={`btn btn-${props.mode === "dark" ? "dark" : "light"} mx-1 my-1`} onClick={handleCopy}>
+        <button disabled={text.length === 0} className={`btn btn-${props.mode === "dark" ? "dark" : "light"} mx-1 my-1`} onClick={handleCopy}>
           Copy
         </button>
-        <button className={`btn btn-${props.mode === "dark" ? "dark" : "light"} mx-1 my-1`} onClick={handleExtraSpaces}>
+        <button disabled={text.length === 0} className={`btn btn-${props.mode === "dark" ? "dark" : "light"} mx-1 my-1`} onClick={handleExtraSpaces}>
           Remove Extra Spaces
         </button>
       </div>
@@ -67,7 +65,7 @@ export default function TextForm(props) {
         <h2>Text Summary</h2>
         <p>
           {
-            text.split(" ").filter((element) => {
+            text.split(/\s+/).filter((element) => {
               return element.length !== 0;
             }).length
           }{" "}
