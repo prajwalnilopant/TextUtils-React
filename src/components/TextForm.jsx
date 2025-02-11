@@ -47,23 +47,23 @@ export default function TextForm(props) {
             rows="8"
           ></textarea>
         </div>
-        <button className="btn btn-primary mx-1 my-1" onClick={handleUpClick}>
+        <button className={`btn btn-${props.mode === "dark" ? "dark" : "light"} mx-1 my-1`} onClick={handleUpClick}>
           Upper Case
         </button>
-        <button className="btn btn-primary mx-1 my-1" onClick={handleLoClick}>
+        <button className={`btn btn-${props.mode === "dark" ? "dark" : "light"} mx-1 my-1`} onClick={handleLoClick}>
           Lower Case
         </button>
-        <button className="btn btn-primary mx-1 my-1" onClick={handleClear}>
+        <button className={`btn btn-${props.mode === "dark" ? "dark" : "light"} mx-1 my-1`} onClick={handleClear}>
           Clear
         </button>
-        <button className="btn btn-primary mx-1 my-1" onClick={handleCopy}>
+        <button className={`btn btn-${props.mode === "dark" ? "dark" : "light"} mx-1 my-1`} onClick={handleCopy}>
           Copy
         </button>
-        <button className="btn btn-primary mx-1 my-1" onClick={handleExtraSpaces}>
+        <button className={`btn btn-${props.mode === "dark" ? "dark" : "light"} mx-1 my-1`} onClick={handleExtraSpaces}>
           Remove Extra Spaces
         </button>
       </div>
-      <div className="container my-3" style={{ color: props.mode === "dark" ? "white" : "black" }}>
+      <div className="container mx-2 my-2" style={{ color: props.mode === "dark" ? "white" : "black" }}>
         <h2>Text Summary</h2>
         <p>
           {
@@ -73,7 +73,13 @@ export default function TextForm(props) {
           }{" "}
           Words {text.length} Characters
         </p>
-        <p>{0.008 * text.split(" ").length}Minutes Read</p>
+        <p>
+          {0.008 *
+            text.split(" ").filter((element) => {
+              return element.length !== 0;
+            }).length}{" "}
+          Minutes Read
+        </p>
         <h2>Preview</h2>
         <p>{text.length > 0 ? text : "Your Text Preview Here"}</p>
       </div>
